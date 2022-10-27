@@ -4,7 +4,7 @@
       <h1>Картины эпохи Возрождения</h1>
       <div class="pictureContainer">
         <picture-item
-          v-for="pictureItem in this.$store.state.pictureItems"
+          v-for="pictureItem in filteredList"
           :pictureItem="pictureItem"
           :key="pictureItem.id"
           
@@ -21,6 +21,13 @@
     components:  {
       PictureItem: () => import('./PictureItem.vue'),
     },
+    computed: {
+      filteredList: function (){
+        const name = this.$store.state.findName.toLowerCase();
+      
+        return this.$store.state.pictureItems.filter(item => item.name.toLowerCase().includes(name));
+      }
+    }
   }
   
   </script>

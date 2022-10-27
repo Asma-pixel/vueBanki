@@ -1,33 +1,40 @@
 <template>
   <form @submit.prevent>
     <find-input
-      v-focus
-      type="text"
+      @update="updateInput"
       placeholder="Поиск по названию картины"
-      @myInput="alert('fads')"
+      type="text"
     />
-    <my-button  @click="" style="padding: 13px 36px">Найти</my-button>
+    <my-button  @btnClick="findClick" style="padding: 13px 36px">Найти</my-button>
     
   </form>
 </template>
 
 <script>
+
 export default {
   components: {
     FindInput: () => import('./UI/Inputs/FindInput.vue'),
     MyButton: () => import('./UI/Buttons/MyButton.vue')
   },
-  data() {
+  data(){
     return {
-      product: {
-        name: '',
-      }
+      pictureName: '',
     }
   },
   methods: {
-    a(){
-      alert('asdfafd')
-    }
+    updateInput(event) {
+      this.pictureName = event;
+      this.filter()
+    },
+    findClick() {
+      this.filter()
+    },
+    filter(){
+      
+      this.$store.commit('changeFindName', this.pictureName );
+    },
+      
   },
 }
 </script>

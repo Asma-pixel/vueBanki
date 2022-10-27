@@ -9,8 +9,6 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 new Vue({
   el: '#app',
-  store: store,
-  render: (h) => h(App),
+  store,
+  render: h => h(App)
 });
-
-

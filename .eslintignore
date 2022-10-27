@@ -1,0 +1,5 @@
+node_modules
+dist
+webpack.config.js
+/src/js/store.js
+/src/js/index.js

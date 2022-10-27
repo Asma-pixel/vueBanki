@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 const PATHS = {
@@ -29,13 +30,13 @@ const config = {
     new VueLoaderPlugin(),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    
+
   ],
   resolve: {
     alias: {
       '@': PATHS.src, // Example: import Sort from "@/utils/sort.js"
-      
-    }
+
+    },
   },
   module: {
     rules: [
@@ -65,7 +66,7 @@ const config = {
       {
         test: /\.(jpg|png|svg)$/,
         type: 'asset/resource',
-      }
+      },
     ],
   },
 };

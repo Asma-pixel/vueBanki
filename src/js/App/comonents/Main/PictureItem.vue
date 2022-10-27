@@ -1,8 +1,23 @@
 <template>
   <div class="item" >
-    <img :src="pictureItem.image">
+    <img :src="pictureItem.image" @click="$bvModal.show(pictureItem.id)" id="show-btn">
+    <b-modal :id="pictureItem.id" hide-footer>
+    <template #modal-title>
+      <h3>Описание картины</h3>
+    </template>
+    <div class="d-block text-center">
+      <h1>{{pictureItem.name}}</h1>
+      <h2>{{pictureItem.author}}</h2> 
+      <p>{{pictureItem.description}}</p>
+      <slider 
+        :imageSrc = "pictureItem.image"
+        :key= "pictureItem.id"
+      ></slider>
+    </div>
+    <b-button class="mt-3" block @click="$bvModal.hide(pictureItem.id)">Close</b-button>
+  </b-modal>
     <div class="picture">
-    <div class="title">
+    <div class="title"  @click="$bvModal.show('bv-modal-example')">
       <h5>{{pictureItem.name}}</h5>
       <h5>{{pictureItem.author}}</h5> 
     </div>
@@ -17,24 +32,22 @@
       </div>
       <my-button
         v-if="pictureItem.isInCart"
-        v-bind:disabled="isDisabled"
         class="button"
       >
-      {{stateOrder = 'В корзине'}}
-    </my-button>
-    <my-button
-       v-else
-      
-       v-bind:disabled="isDisabled"
-       @btnClick="buyCLick"
-       class="button"
+        {{stateOrder = 'В корзине'}}
+      </my-button>
+      <my-button
+        v-else
+        :disabled="isDisabled"
+        @btnClick="buyCLick"
+        class="button"
       >
-      {{stateOrder === ''? 'Купить' : stateOrder }}
-    </my-button>
+       {{stateOrder === ''? 'Купить' : stateOrder }}
+      </my-button>
     </div>
     <div class="sales"  v-else>
       <div></div>
-      <p>Продана на аукционе</p>
+       <p>Продана на аукционе</p>
     </div>
   </div>
   </div>
@@ -45,13 +58,14 @@
 export default {
     components: {
       MyButton: () => import('../UI/Buttons/MyButton.vue'),
+      Slider: () => import('./Slider.vue')
     },
     data() {   
      
       return {
-
         stateOrder: '',
         isDisabled: false,
+        isModal: false,
       }
     },
   
@@ -62,14 +76,20 @@ export default {
       }
     },
     methods: {
-      buyCLick(e) {
-       
+      buyCLick() {
         if (this.stateOrder === 'В корзине') return;
         this.stateOrder = 'Обработка';
         this.isDisabled = true;
-        setTimeout(() => { this.stateOrder = 'В корзине'; this.isDisabled = false }, 2000);
-        this.$store.commit('addInCart', this.pictureItem.id);
+        setTimeout(() => { 
+          this.stateOrder = 'В корзине';
+          this.isDisabled = false;
+          this.$store.commit('addInCart', this.pictureItem.id);
+        }, 2000);
+       
       },
+      openModal(event) {
+        this.isModal = true;
+      }
     }
   }
   
