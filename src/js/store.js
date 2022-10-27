@@ -62,6 +62,14 @@ const store = new Vuex.Store({
     },
     changeFindName(state, newName) {
       state.findName = newName;
+    },
+    changeCartState(state, cartStates) {
+      console.log(cartStates)
+      state.pictureItems.forEach(item => {
+        const cartState = cartStates.find(el=> el.id === item.id);
+        console.log(cartState)
+        item.isInCart = cartState.isInCart;
+    })
     }
 
   }

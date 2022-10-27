@@ -30,7 +30,18 @@ export default {
       ],
       
     }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem('cartStates')) {
+      try {
+        const data = JSON.parse(localStorage.getItem('cartStates'));
+        console.log(data);
+        this.$store.commit('changeCartState', data);
+      } catch(e) {
+        alert(e)
+      }
+    }
+  },
 }
 </script>
 <style>

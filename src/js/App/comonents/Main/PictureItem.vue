@@ -85,6 +85,16 @@ export default {
           this.stateOrder = 'В корзине';
           this.isDisabled = false;
           this.$store.commit('addInCart', this.pictureItem.id);
+          const cartStates= this.$store.state.pictureItems.map(item => {
+            return {
+              id: item.id,
+              isInCart: item.isInCart,
+            }
+            
+          })
+          const parsed = JSON.stringify(cartStates);
+          localStorage.am = 'afd';
+          localStorage.setItem('cartStates', parsed);
         }, 2000);
        
       },
