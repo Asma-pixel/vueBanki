@@ -1,8 +1,8 @@
 <template>
 <div class="nav">
   <div class="nav-container">
-    <nav-list :navItems="navItems"></nav-list>
-    <find-form></find-form>
+    <nav-list class="nav-list" :navItems="navItems"></nav-list>
+    <find-form class="form"></find-form>
   </div>
   
 </div>
@@ -38,5 +38,23 @@ export default {
     width: 85%;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
   }
+  @media screen and (max-width: 1032px) {
+      .form {
+        margin-top: 24px;
+      }
+      
+    /* STYLES HERE */
+    }
+    @media screen and (max-width: 800px) {
+      .nav-list {
+        display:flex;
+        flex-direction: column;
+      }
+    /* STYLES HERE */
+    }
+  
+  
+
 </style>

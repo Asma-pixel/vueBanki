@@ -4,7 +4,7 @@
       <h1>Картины эпохи Возрождения</h1>
       <div class="pictureContainer">
         <picture-item
-          v-for="pictureItem in pictureItems"
+          v-for="pictureItem in this.$store.state.pictureItems"
           :pictureItem="pictureItem"
           :key="pictureItem.id"
           
@@ -21,12 +21,6 @@
     components:  {
       PictureItem: () => import('./PictureItem.vue'),
     },
-    props: {
-      pictureItems: {
-        type: Array,
-        required: true,
-      }
-    }
   }
   
   </script>
@@ -41,9 +35,23 @@
     }
     .pictureListContainer {
       width: 80%;
+   
     }
     .pictureContainer {
       display: flex;
+      flex-wrap: wrap;
+    }
+    @media screen and (max-width: 850px) {
+      .pictureListContainer {
+        width: 100%;
+        margin: 0 50px;
+      }
+      .pictureContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+    /* STYLES HERE */
     }
 
   </style>

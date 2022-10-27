@@ -4,6 +4,7 @@
       v-focus
       type="text"
       placeholder="Поиск по названию картины"
+      @myInput="alert('fads')"
     />
     <my-button  @click="" style="padding: 13px 36px">Найти</my-button>
     

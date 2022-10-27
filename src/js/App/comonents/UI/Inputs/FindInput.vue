@@ -1,12 +1,14 @@
 <template>
-  <input class="input" type="text">
+  <input @click="myInput" class="input" type="text">
 </template>
 
 <script>
 export default {
   name: 'my-input',
   methods: {
-    
+    myInput() {
+      this.$emit('myInput')
+    },
   }
 }
 </script>

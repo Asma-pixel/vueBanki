@@ -8,7 +8,7 @@
     </div>
     
     <div class="content" v-if="pictureItem.isAvailable">
-      <div  class="prices" v-if="pictureItem.newPrice == pictureItem.oldPric">
+      <div  class="prices" v-if="pictureItem.newPrice == pictureItem.oldPrice">
           <p>{{pictureItem.newPrice}}</p>
         </div>
       <div class="prices" v-else>
@@ -16,10 +16,20 @@
           <p>{{pictureItem.oldPrice}}</p>
       </div>
       <my-button
+        v-if="pictureItem.isInCart"
+        v-bind:disabled="isDisabled"
+        class="button"
+      >
+      {{stateOrder = 'В корзине'}}
+    </my-button>
+    <my-button
+       v-else
+      
        v-bind:disabled="isDisabled"
        @btnClick="buyCLick"
+       class="button"
       >
-      {{stateOrder}}
+      {{stateOrder === ''? 'Купить' : stateOrder }}
     </my-button>
     </div>
     <div class="sales"  v-else>
@@ -32,14 +42,16 @@
   </template>
   <script>
 
-  export default {
+export default {
     components: {
       MyButton: () => import('../UI/Buttons/MyButton.vue'),
     },
-    data( ) {
+    data() {   
+     
       return {
-        stateOrder: 'Купить',
-        isDisabled:false,
+
+        stateOrder: '',
+        isDisabled: false,
       }
     },
   
@@ -50,10 +62,13 @@
       }
     },
     methods: {
-      buyCLick(e){
-         this.stateOrder = 'Обработка';
-         this.isDisabled = true;
-         setTimeout(()=>{this.stateOrder = 'В корзине'; this.isDisabled = true}, 2000);
+      buyCLick(e) {
+       
+        if (this.stateOrder === 'В корзине') return;
+        this.stateOrder = 'Обработка';
+        this.isDisabled = true;
+        setTimeout(() => { this.stateOrder = 'В корзине'; this.isDisabled = false }, 2000);
+        this.$store.commit('addInCart', this.pictureItem.id);
       },
     }
   }
@@ -67,10 +82,9 @@
       }
     }
     .item {
-      margin-right:48px;
+      margin:0 48px 40px 0;
       position: relative;
       width: 280px;
-      
     }
     .stub {
       height: 160px; 
@@ -83,6 +97,9 @@
     .prices {
       display: flex;
       flex-direction: column;
+      p {
+        margin: 0;
+      }
       p:first-child {
         font-weight: 300;
         font-size: 14px;
@@ -93,19 +110,31 @@
       p:last-child {
         font-weight: 700;
         font-size: 14px;
+        text-decoration-line: none;
+        color: #343030;
       }
     }
     .content {
       display: flex;
       align-items: center;
+    
       justify-content: space-around;
       
+    }
+    .button {
+       margin: 22px 0 24px ;
     }
     .sales{
         p{
           font-weight: 700;
           font-size: 16px;
-          margin: 34px 70px 38px 24px;
+          margin: 34px 70px 59px 24px;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 150%;
+          display: flex;
+          align-items: center;
         }
         div {
           position: absolute;
@@ -115,6 +144,11 @@
           background-color: #A0A0A0;
           opacity: 0.4;
         }
+    }
+    @media screen and (max-width: 350px) {
+     .item {
+      margin-left: 24px;
+     }
     }
 
   </style>
