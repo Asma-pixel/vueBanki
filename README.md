@@ -3,5 +3,6 @@ link to site: https://pictures-zeta.vercel.app/
 
 Сайт не поддерживает локальное хранилище, точнее оно занято;
 Поэтому проект придеться развернуть локально следующими командами:
-npm install
-npm start или make start (Linux)
+---
+1. npm install
+2. npm start или make start (Linux)
