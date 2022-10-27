@@ -32,8 +32,9 @@
       </div>
       <my-button
         v-if="pictureItem.isInCart"
-        class="button"
+        class="button inCart"
       >
+        <img :src="require('@/images/Vector.svg')" alt="">
         {{stateOrder = 'В корзине'}}
       </my-button>
       <my-button
@@ -143,6 +144,14 @@ export default {
     }
     .button {
        margin: 22px 0 24px ;
+    }
+    .inCart {
+     display: flex;
+     align-items: center;
+     background-color: #5B3A32 !important;
+     img{
+      margin-right: 7px;
+     }
     }
     .sales{
         p{
